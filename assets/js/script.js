@@ -1,0 +1,1 @@
+$('.juego').blockrain(opciones);
