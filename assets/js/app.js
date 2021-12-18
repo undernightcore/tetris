@@ -1,5 +1,5 @@
 //Function that creates a session
-function createSession(correo, password) {
+function createSession(correo, password, callback) {
 	let promise = sdk.account.createSession(correo, password);
 
 	promise.then(
@@ -7,6 +7,7 @@ function createSession(correo, password) {
 			console.log(response); // Success
 			idSession = response.$id;
 			idUser = response.userId;
+			callback();
 		},
 		function (error) {
 			console.log(error); // Failure
@@ -29,11 +30,16 @@ async function deleteSession() {
 
 //Function that creates a void Document in the collection
 async function createDocument() {
-	let session = await getaccount();
+	let session = await getAccount();
 
-	let promise = sdk.database.createDocument('61b4e927864c5', {
-		nombre: session.name,
-	}, ["*"]);
+	let promise = sdk.database.createDocument(
+		'61b4e927864c5',
+		{
+			nombre: session.name,
+			userid: idUser,
+		},
+		['*']
+	);
 
 	promise.then(
 		function (response) {
@@ -47,8 +53,8 @@ async function createDocument() {
 }
 
 //Function that returns all documents
-function getDocuments(limit) {
-	return sdk.database.listDocuments(
+function getDocuments(limit, callback) {
+	let promise = sdk.database.listDocuments(
 		'61b4e927864c5',
 		'',
 		limit,
@@ -57,17 +63,10 @@ function getDocuments(limit) {
 		'DESC',
 		'int'
 	);
-}
-
-function updateDocument(puntuacion) {
-	let promise = sdk.database.updateDocument('61b4e927864c5', idDocumento, {
-		puntuacion: puntuacion,
-	});
 
 	promise.then(
 		function (response) {
-			console.log(response); // Success
-			documents = response.documents;
+			callback(response.documents);
 		},
 		function (error) {
 			console.log(error); // Failure
@@ -75,7 +74,54 @@ function updateDocument(puntuacion) {
 	);
 }
 
-function getaccount() {
+function getDocument(callback) {
+	let promise = sdk.database.listDocuments('61b4e927864c5', [
+		`userid=${idUser}`,
+	]);
+
+	promise.then(
+		function (response) {
+			callback(response.documents);
+		},
+		function (error) {
+			console.log(error); // Failure
+		}
+	);
+}
+
+function updateDocument(puntuacion) {
+	let promise = sdk.database.getDocument('61b4e927864c5', idDocumento);
+
+	promise.then(
+		function (response) {
+			if (response.puntuacion < puntuacion) {
+				console.log('updating');
+				let promise = sdk.database.updateDocument(
+					'61b4e927864c5',
+					idDocumento,
+					{
+						puntuacion: puntuacion,
+					}
+				);
+
+				promise.then(
+					function (response) {
+						console.log(response); // Success
+						documents = response.documents;
+					},
+					function (error) {
+						console.log(error); // Failure
+					}
+				);
+			}
+		},
+		function (error) {
+			console.log(error); // Failure
+		}
+	);
+}
+
+function getAccount() {
 	let promise = sdk.account.get();
 
 	let respuesta = promise.then(
