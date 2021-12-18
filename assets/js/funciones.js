@@ -7,20 +7,19 @@ function initSDK() {
 // Inicia el juego como tal
 function init() {
 	sdk.subscribe('collections.61b4e927864c5.documents', (response) => {
-		console.log('buenas');
 		getDocuments(limitRanking, (docs) => {
 			drawRanking(docs);
 			drawPosition(docs);
 		});
 	});
 
-	getDocuments(limitRanking, (docs) => {
-		// Crea e iguala idDocumento o simplemente iguala idDocumento
-		// del unico que deberia de existir
+	getDocument((docs) => {
 		if (docs.length == 0) {
 			createDocument();
 		} else idDocumento = docs[0].$id;
+	});
 
+	getDocuments(limitRanking, (docs) => {
 		const opciones = {
 			autoplay: false,
 			autoplayRestart: true,
