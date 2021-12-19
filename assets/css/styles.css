@@ -1,3 +1,7 @@
+.disabled {
+	opacity: 1 !important;
+}
+
 .principal {
 	margin: 0;
 	height: 100vh;

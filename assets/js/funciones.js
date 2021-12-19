@@ -106,7 +106,20 @@ function drawPosition(docs) {
 }
 
 function showGame() {
-	console.log('El juego se deberia de mostrar');
+	document.getElementById('login').classList.add('invisible');
+	document.getElementById('pantallaJuego').classList.remove('invisible');
+}
+
+function showSpinner() {
+	document.getElementById('initSessionButton').classList.add('disabled');
+	document.getElementById('initSession').classList.add('invisible');
+	document.getElementById('spinner').classList.remove('invisible');
+}
+
+function hideSpinner() {
+	document.getElementById('initSessionButton').classList.remove('disabled');
+	document.getElementById('initSession').classList.remove('invisible');
+	document.getElementById('spinner').classList.add('invisible');
 }
 
 function onLinea(puntuacion) {

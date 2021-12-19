@@ -1,5 +1,5 @@
 //Function that creates a session
-function createSession(correo, password, callback) {
+function createSession(correo, password, success, error) {
 	let promise = sdk.account.createSession(correo, password);
 
 	promise.then(
@@ -7,14 +7,11 @@ function createSession(correo, password, callback) {
 			console.log(response); // Success
 			idSession = response.$id;
 			idUser = response.userId;
-			document.getElementById('pantallaJuego').classList.remove('d-none');
-			document.getElementById('pantallaJuego').classList.add('d-flex');
-			document.getElementById('login').classList.remove('d-flex');
-			document.getElementById('login').classList.add('d-none');
-			callback();
+			success();
 		},
-		function (error) {
-			console.log(error); // Failure
+		function (err) {
+			console.log(err); // Failure
+			error();
 		}
 	);
 }
