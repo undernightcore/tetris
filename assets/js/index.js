@@ -1,6 +1,16 @@
 const timeToReloadPage = 3000;
 const limitRanking = 5;
 const sdk = initSDK();
+const options = [
+	'A la siguiente igual..',
+	'Bueno, quiza el tetris no es lo tuyo',
+	'Al pozo',
+	'Eh, no te piques',
+	'Chill, solo es un juego',
+	'Anda mira, un mono jugando',
+	'Eso es todo? Vaya tela',
+	'Pero bueno.. ya has terminado?',
+];
 
 let idSession, idUser, idDocumento;
 
