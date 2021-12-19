@@ -24,6 +24,8 @@
 				justify-content-center
 				align-items-center
 				principal
+				position-absolute
+				w-100
 			"
 			id="login"
 		>
@@ -59,7 +61,11 @@
 						<div class="bg-inner"></div>
 					</div>
 				</div>
-				<button class="btn block-cube block-cube-hover" type="submit">
+				<button
+					id="initSessionButton"
+					class="btn block-cube block-cube-hover"
+					type="submit"
+				>
 					<div class="bg-top">
 						<div class="bg-inner"></div>
 					</div>
@@ -69,13 +75,30 @@
 					<div class="bg">
 						<div class="bg-inner"></div>
 					</div>
-					<div class="text">Iniciar Sesion</div>
+					<div id="initSession" class="text">Iniciar Sesion</div>
+					<div
+						id="spinner"
+						class="invisible position-absolute top-50 start-50 translate-middle"
+					>
+						<span
+							class="spinner-border text-warning"
+							style="width: 1.5rem; height: 1.5rem"
+						></span>
+					</div>
 				</button>
 			</form>
 		</div>
 
 		<div
-			class="d-none justify-content-center align-items-center principal"
+			class="
+				invisible
+				d-flex
+				justify-content-center
+				align-items-center
+				principal
+				position-absolute
+				w-100
+			"
 			id="pantallaJuego"
 		>
 			<div class="text-center columaIzquierda">
@@ -117,6 +140,6 @@
 		<script src="assets/js/funciones.js"></script>
 		<script src="assets/js/app.js"></script>
 		<script src="assets/js/index.js"></script>
-		<script src="assets/js/script.js"></script>
+		<!--<script src="assets/js/script.js"></script>-->
 	</body>
 </html>
