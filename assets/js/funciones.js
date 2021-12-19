@@ -57,8 +57,6 @@ function init() {
 
 				updateDocument(score);
 				onLinea(score);
-				currentScore = score;
-				console.log(score);
 			},
 		};
 
