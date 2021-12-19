@@ -8,6 +8,7 @@
 		/>
 		<title>Tetris</title>
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="assets/css/formulario.css" />
 		<link rel="stylesheet" href="assets/css/Digital%20Numbers%20Regular.css" />
 		<link rel="stylesheet" href="assets/css/blockrain.css" />
 		<link rel="stylesheet" href="assets/css/styles.css" />
@@ -17,7 +18,64 @@
 
 	<body>
 		<div
-			class="d-flex justify-content-center align-items-center principal"
+			class="
+				d-flex
+				flex-column
+				justify-content-center
+				align-items-center
+				principal
+			"
+			id="login"
+		>
+			<img class="logo" src="assets/img/logo.png" style="width: 300px" />
+			<h1 class="titulo" hidden></h1>
+			<form autocomplete="off" class="form" id="formulario">
+				<div class="control block-cube block-input">
+					<input id="correo" name="username" placeholder="Email" type="text" />
+					<div class="bg-top">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="bg-right">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="bg">
+						<div class="bg-inner"></div>
+					</div>
+				</div>
+				<div class="control block-cube block-input">
+					<input
+						id="password"
+						name="password"
+						placeholder="Contraseña"
+						type="password"
+					/>
+					<div class="bg-top">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="bg-right">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="bg">
+						<div class="bg-inner"></div>
+					</div>
+				</div>
+				<button class="btn block-cube block-cube-hover" type="submit">
+					<div class="bg-top">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="bg-right">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="bg">
+						<div class="bg-inner"></div>
+					</div>
+					<div class="text">Iniciar Sesion</div>
+				</button>
+			</form>
+		</div>
+
+		<div
+			class="d-none justify-content-center align-items-center principal"
 			id="pantallaJuego"
 		>
 			<div class="text-center columaIzquierda">

@@ -7,6 +7,10 @@ function createSession(correo, password, callback) {
 			console.log(response); // Success
 			idSession = response.$id;
 			idUser = response.userId;
+			document.getElementById('pantallaJuego').classList.remove('d-none');
+			document.getElementById('pantallaJuego').classList.add('d-flex');
+			document.getElementById('login').classList.remove('d-flex');
+			document.getElementById('login').classList.add('d-none');
 			callback();
 		},
 		function (error) {
