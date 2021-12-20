@@ -125,7 +125,9 @@ function drawPosition(docs) {
 }
 
 function drawName(doc) {
-	$('#jugador').html(doc.nombre);
+	$('#jugador').html(
+		doc.nombre.length > 10 ? doc.nombre.substring(0, 10) : doc.nombre
+	);
 }
 
 function showGame() {
