@@ -33,15 +33,16 @@ function init() {
 
 			playText: 'Dale a jugar para empezar',
 			playButtonText: 'Jugar',
-			gameOverText: 'Al pozo',
-			restartButtonText: 'Jugar otra vez',
+			gameOverText: getRandomText(),
+			restartButtonText: 'Salir',
 			scoreText: 'Puntuación',
 
 			onStart: function () {
 				console.log('Partida iniciada!');
 			},
 			onRestart: function () {
-				onLinea(0);
+				deleteSession();
+				window.location.reload();
 			},
 			onGameOver: function (score) {
 				onFinishStart();
@@ -69,6 +70,11 @@ function init() {
 
 function isOwnDocument(doc) {
 	return idUser === doc.userid;
+}
+
+function getRandomText() {
+	const n = parseInt(Math.random() * options.length);
+	return options[n];
 }
 
 function drawRanking(documents) {
