@@ -8,8 +8,18 @@ function initSDK() {
 function init() {
 	sdk.subscribe('collections.61b4e927864c5.documents', (response) => {
 		getDocuments((docs) => {
-			drawRanking(docs.slice(0, limitRanking));
+			for (let i = 0; i < limitRanking; i++) {
+				if (
+					documentos === undefined ||
+					docs[i].puntuacion !== documentos[i].puntuacion
+				) {
+					drawRanking(docs.slice(0, limitRanking));
+					break;
+				}
+			}
+
 			drawPosition(docs);
+			documentos = docs;
 		});
 	});
 
@@ -17,9 +27,12 @@ function init() {
 		if (docs.length == 0) {
 			createDocument();
 		} else idDocumento = docs[0].$id;
+
+		drawName(docs[0]);
 	});
 
 	getDocuments((docs) => {
+		documentos = docs;
 		const opciones = {
 			autoplay: false,
 			autoplayRestart: true,
@@ -109,6 +122,10 @@ function drawPosition(docs) {
 	}
 
 	$('#posicion').html('+100');
+}
+
+function drawName(doc) {
+	$('#jugador').html(doc.nombre);
 }
 
 function showGame() {
