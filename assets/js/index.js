@@ -12,7 +12,7 @@ const options = [
 	'Pero bueno.. ya has terminado?',
 ];
 
-let idSession, idUser, idDocumento;
+let idSession, idUser, idDocumento, documentos;
 
 document.addEventListener('submit', (e) => {
 	e.preventDefault();
