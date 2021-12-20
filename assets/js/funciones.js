@@ -7,8 +7,8 @@ function initSDK() {
 // Inicia el juego como tal
 function init() {
 	sdk.subscribe('collections.61b4e927864c5.documents', (response) => {
-		getDocuments(limitRanking, (docs) => {
-			drawRanking(docs);
+		getDocuments((docs) => {
+			drawRanking(docs.slice(0, limitRanking));
 			drawPosition(docs);
 		});
 	});
@@ -19,7 +19,7 @@ function init() {
 		} else idDocumento = docs[0].$id;
 	});
 
-	getDocuments(limitRanking, (docs) => {
+	getDocuments((docs) => {
 		const opciones = {
 			autoplay: false,
 			autoplayRestart: true,
@@ -60,7 +60,7 @@ function init() {
 			},
 		};
 
-		drawRanking(docs);
+		drawRanking(docs.slice(0, limitRanking));
 		drawPosition(docs);
 
 		$('.juego').blockrain(opciones);

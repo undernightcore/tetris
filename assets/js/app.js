@@ -54,11 +54,11 @@ async function createDocument() {
 }
 
 //Function that returns all documents
-function getDocuments(limit, callback) {
+function getDocuments(callback) {
 	let promise = sdk.database.listDocuments(
 		'61b4e927864c5',
 		'',
-		limit,
+		100,
 		0,
 		'puntuacion',
 		'DESC',
