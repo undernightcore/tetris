@@ -63,6 +63,16 @@
 	animation: test 1s;
 }
 
+#logout {
+	margin-top: 5%;
+	background-color: Transparent;
+	background-repeat: no-repeat;
+	border: 5px solid black;
+	cursor: pointer;
+	overflow: hidden;
+	outline: none;
+}
+
 @keyframes test {
 	from {
 		opacity: 0;

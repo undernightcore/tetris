@@ -22,6 +22,7 @@ async function deleteSession() {
 	promise.then(
 		function (response) {
 			console.log(response); // Success
+			window.location.reload();
 		},
 		function (error) {
 			console.log(error); // Failure

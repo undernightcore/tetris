@@ -47,15 +47,14 @@ function init() {
 			playText: 'Dale a jugar para empezar',
 			playButtonText: 'Jugar',
 			gameOverText: getRandomText(),
-			restartButtonText: 'Salir',
+			restartButtonText: 'Volver a jugar',
 			scoreText: 'Puntuación',
 
 			onStart: function () {
 				console.log('Partida iniciada!');
 			},
 			onRestart: function () {
-				deleteSession();
-				window.location.reload();
+				onLinea(0);
 			},
 			onGameOver: function (score) {
 				onFinishStart();
