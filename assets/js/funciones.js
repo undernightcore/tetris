@@ -176,6 +176,8 @@ function drawExitButton() {
 }
 
 function initPosition(doc, index) {
+	posicion = 100;
+
 	if (doc.userid == idUser) {
 		posicion = index;
 	}
