@@ -8,16 +8,7 @@ function initSDK() {
 function init() {
 	sdk.subscribe('collections.61b4e927864c5.documents', (response) => {
 		getDocuments((docs) => {
-			for (let i = 0; i < limitRanking; i++) {
-				if (
-					documentos === undefined ||
-					docs[i].puntuacion !== documentos[i].puntuacion
-				) {
-					drawRanking(docs.slice(0, limitRanking));
-					break;
-				}
-			}
-
+			drawRanking(docs.slice(0, limitRanking));
 			drawPosition(docs);
 			documentos = docs;
 		});
@@ -26,13 +17,17 @@ function init() {
 	getDocument((docs) => {
 		if (docs.length == 0) {
 			createDocument();
-		} else idDocumento = docs[0].$id;
+		} else {
+			idDocumento = docs[0].$id;
+			drawRecord(docs[0].puntuacion);
+		}
 
 		drawName(docs[0]);
 	});
 
 	getDocuments((docs) => {
 		documentos = docs;
+		docs.filter((doc, index) => initPosition(doc, index));
 		const opciones = {
 			autoplay: false,
 			autoplayRestart: true,
@@ -64,7 +59,7 @@ function init() {
 			onLine: function (lines, scoreIncrement, score) {
 				console.log('Has puntuado!');
 
-				updateDocument(score);
+				updateDocument(score, () => drawRecord(score));
 				onLinea(score);
 			},
 		};
@@ -91,11 +86,18 @@ function drawRanking(documents) {
 
 	documents.forEach((doc, index) => {
 		data += `
-		<div style='${
-			isOwnDocument(doc) ? 'border: 1px solid #00ff19;' : ''
-		} margin: 5px; padding: 10px; display: flex; justify-content: space-between;'>
-            <span>${index + 1}.</span>
-            <span style="margin-right: 25px">${
+		<div
+            class='${
+							documentos[index].userid !== doc.userid ||
+							documentos[index].puntuacion !== doc.puntuacion
+								? 'records'
+								: ''
+						}' 
+            style='${
+							isOwnDocument(doc) ? 'border: 1px solid #00ff19;' : ''
+						} margin: 5px; padding: 10px; display: flex; justify-content: space-between;'>
+            <span class='me-3'>${index + 1}.</span>
+            <span class='w-100 text-start'>${
 							doc.nombre.length > 10
 								? `${doc.nombre.substring(0, 10)} -`
 								: doc.nombre
@@ -104,15 +106,18 @@ function drawRanking(documents) {
 		</div>`;
 	});
 
-	$('#rankingContent').html(
-		`<div class="records" style="margin-top: 15px">${data}</div>`
-	);
+	$('#rankingContent').html(`<div style="margin-top: 15px">${data}</div>`);
 }
 
 function drawPosition(docs) {
+	position = undefined;
+
 	for (let i = 0; i < docs.length; i++) {
-		if (docs[i].userid == idUser) {
-			$('#posicion').html(i + 1);
+		if (docs[i].userid === idUser) {
+			$('#posicion').html(
+				`<span class="${posicion !== i ? 'records' : ''}">${i + 1}</span>`
+			);
+			posicion = i;
 			return;
 		}
 	}
@@ -124,6 +129,10 @@ function drawName(doc) {
 	$('#jugador').html(
 		doc.nombre.length > 10 ? doc.nombre.substring(0, 10) : doc.nombre
 	);
+}
+
+function drawRecord(puntuacion) {
+	$('#record').text(puntuacion);
 }
 
 function showGame() {
@@ -144,7 +153,7 @@ function hideSpinner() {
 }
 
 function onLinea(puntuacion) {
-	$('#puntuacion').text(puntuacion);
+	$('#puntuacion').html(`<span class="records">${puntuacion}</span>`);
 }
 
 // Que ocurrira justo antes de que la partida termine?
@@ -166,4 +175,14 @@ function drawExitButton() {
 			window.location.reload();
 		});
 	}
+}
+
+function initPosition(doc, index) {
+	posicion = undefined;
+
+	if (doc.userid == idUser) {
+		posicion = index;
+	}
+
+	return true;
 }

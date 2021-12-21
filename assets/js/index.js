@@ -12,7 +12,7 @@ const options = [
 	'Pero bueno.. ya has terminado?',
 ];
 
-let idSession, idUser, idDocumento, documentos;
+let idSession, idUser, idDocumento, documentos, posicion;
 
 document.addEventListener('DOMContentLoaded', (e) => {
 	deleteSession();
