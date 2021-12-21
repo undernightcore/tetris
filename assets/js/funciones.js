@@ -49,7 +49,7 @@ function init() {
 				console.log('Partida iniciada!');
 			},
 			onRestart: function () {
-				// Nothing xD
+				onLinea(0);
 			},
 			onGameOver: function (score) {
 				onFinishStart();
