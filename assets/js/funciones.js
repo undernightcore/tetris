@@ -110,6 +110,8 @@ function drawRanking(documents) {
 }
 
 function drawPosition(docs) {
+	position = undefined;
+
 	for (let i = 0; i < docs.length; i++) {
 		if (docs[i].userid === idUser) {
 			$('#posicion').html(
@@ -176,7 +178,7 @@ function drawExitButton() {
 }
 
 function initPosition(doc, index) {
-	posicion = 100;
+	posicion = undefined;
 
 	if (doc.userid == idUser) {
 		posicion = index;
