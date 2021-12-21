@@ -16,18 +16,20 @@ function init() {
 
 	getDocument((docs) => {
 		if (docs.length == 0) {
-			createDocument();
+			createDocument((res) => {
+				drawName(res);
+			});
 		} else {
 			idDocumento = docs[0].$id;
 			drawRecord(docs[0].puntuacion);
+			drawName(docs[0]);
 		}
-
-		drawName(docs[0]);
 	});
 
 	getDocuments((docs) => {
 		documentos = docs;
 		docs.filter((doc, index) => initPosition(doc, index));
+
 		const opciones = {
 			autoplay: false,
 			autoplayRestart: true,
@@ -59,8 +61,10 @@ function init() {
 			onLine: function (lines, scoreIncrement, score) {
 				console.log('Has puntuado!');
 
-				updateDocument(score, () => drawRecord(score));
-				onLinea(score);
+				updateDocument(score, () => {
+					drawRecord(score);
+					onLinea(score);
+				});
 			},
 		};
 
@@ -68,7 +72,10 @@ function init() {
 		drawPosition(docs);
 
 		$('.juego').blockrain(opciones);
-		showGame();
+
+		setTimeout(() => {
+			showGame();
+		}, 700);
 	});
 }
 
