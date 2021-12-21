@@ -30,7 +30,7 @@ async function deleteSession() {
 }
 
 //Function that creates a void Document in the collection
-async function createDocument() {
+async function createDocument(callback) {
 	let session = await getAccount();
 
 	let promise = sdk.database.createDocument(
@@ -46,6 +46,7 @@ async function createDocument() {
 		function (response) {
 			console.log(response.$id); // Success
 			idDocumento = response.$id;
+			callback(response);
 		},
 		function (error) {
 			console.log(error); // Failure

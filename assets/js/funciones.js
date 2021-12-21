@@ -4,7 +4,6 @@ function initSDK() {
 		.setProject('61a5104defa30'); // Your project ID
 }
 
-// Inicia el juego como tal
 function init() {
 	sdk.subscribe('collections.61b4e927864c5.documents', (response) => {
 		getDocuments((docs) => {
@@ -16,18 +15,19 @@ function init() {
 
 	getDocument((docs) => {
 		if (docs.length == 0) {
-			createDocument();
+			createDocument((res) => {
+				drawName(res);
+			});
 		} else {
 			idDocumento = docs[0].$id;
 			drawRecord(docs[0].puntuacion);
+			drawName(docs[0]);
 		}
-
-		drawName(docs[0]);
 	});
 
 	getDocuments((docs) => {
 		documentos = docs;
-		docs.filter((doc, index) => initPosition(doc, index));
+
 		const opciones = {
 			autoplay: false,
 			autoplayRestart: true,
@@ -49,6 +49,7 @@ function init() {
 				console.log('Partida iniciada!');
 			},
 			onRestart: function () {
+				// Nothing xD
 				onLinea(0);
 			},
 			onGameOver: function (score) {
@@ -68,7 +69,10 @@ function init() {
 		drawPosition(docs);
 
 		$('.juego').blockrain(opciones);
-		showGame();
+
+		setTimeout(() => {
+			showGame();
+		}, 700);
 	});
 }
 
@@ -156,16 +160,6 @@ function onLinea(puntuacion) {
 	$('#puntuacion').html(`<span class="records">${puntuacion}</span>`);
 }
 
-// Que ocurrira justo antes de que la partida termine?
-function onFinishStart() {
-	console.log('Partida terminada');
-}
-
-// Que ocurrira cuando termine la partida?
-function onFinishEnd() {
-	window.location.reload();
-}
-
 function drawExitButton() {
 	if ($('.salir').length == 0) {
 		$('.blockrain-game-over').append(`
@@ -175,14 +169,4 @@ function drawExitButton() {
 			window.location.reload();
 		});
 	}
-}
-
-function initPosition(doc, index) {
-	posicion = undefined;
-
-	if (doc.userid == idUser) {
-		posicion = index;
-	}
-
-	return true;
 }
