@@ -63,6 +63,10 @@
 	animation: test 1s;
 }
 
+.salir {
+	margin-top: 20px;
+}
+
 @keyframes test {
 	from {
 		opacity: 0;

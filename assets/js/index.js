@@ -14,9 +14,12 @@ const options = [
 
 let idSession, idUser, idDocumento, documentos;
 
+document.addEventListener('DOMContentLoaded', (e) => {
+	deleteSession();
+});
+
 document.addEventListener('submit', (e) => {
 	e.preventDefault();
-
 	showSpinner();
 
 	correo = document.getElementById('correo').value;

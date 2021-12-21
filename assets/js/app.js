@@ -17,14 +17,14 @@ function createSession(correo, password, success, error) {
 }
 
 async function deleteSession() {
-	let promise = sdk.account.deleteSession(idSession);
+	let promise = sdk.account.deleteSessions();
 
 	promise.then(
 		function (response) {
 			console.log(response); // Success
 		},
 		function (error) {
-			console.log(error); // Failure
+			console.log("There's no session to log out of"); // Failure
 		}
 	);
 }

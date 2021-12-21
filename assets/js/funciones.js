@@ -47,22 +47,18 @@ function init() {
 			playText: 'Dale a jugar para empezar',
 			playButtonText: 'Jugar',
 			gameOverText: getRandomText(),
-			restartButtonText: 'Salir',
+			restartButtonText: 'Volver a jugar',
 			scoreText: 'Puntuación',
 
 			onStart: function () {
 				console.log('Partida iniciada!');
 			},
 			onRestart: function () {
-				deleteSession();
-				window.location.reload();
+				// Nothing xD
 			},
 			onGameOver: function (score) {
 				onFinishStart();
-
-				//setTimeout(() => {
-				//	onFinishEnd();
-				//}, timeToReloadPage);
+				drawExitButton();
 			},
 
 			onLine: function (lines, scoreIncrement, score) {
@@ -159,4 +155,15 @@ function onFinishStart() {
 // Que ocurrira cuando termine la partida?
 function onFinishEnd() {
 	window.location.reload();
+}
+
+function drawExitButton() {
+	if ($('.salir').length == 0) {
+		$('.blockrain-game-over').append(`
+			<a class="blockrain-btn salir">Salir</a>
+		`);
+		$('.salir').on('click', (e) => {
+			window.location.reload();
+		});
+	}
 }
