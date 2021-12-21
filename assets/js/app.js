@@ -90,7 +90,7 @@ function getDocument(callback) {
 	);
 }
 
-function updateDocument(puntuacion) {
+function updateDocument(puntuacion, callback) {
 	let promise = sdk.database.getDocument('61b4e927864c5', idDocumento);
 
 	promise.then(
@@ -107,6 +107,7 @@ function updateDocument(puntuacion) {
 
 				promise.then(
 					function (response) {
+						callback();
 						console.log(response); // Success
 						documents = response.documents;
 					},

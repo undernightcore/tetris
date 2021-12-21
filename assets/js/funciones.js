@@ -59,7 +59,7 @@ function init() {
 			onLine: function (lines, scoreIncrement, score) {
 				console.log('Has puntuado!');
 
-				updateDocument(score);
+				updateDocument(score, () => drawRecord(score));
 				onLinea(score);
 			},
 		};
